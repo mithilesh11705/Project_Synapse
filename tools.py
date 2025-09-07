@@ -198,24 +198,26 @@ def analyze_customer_situation(customer_message: str) -> str:
         return f"""🎯 ACTUAL PROBLEM DETECTED:
         
 ✅ Issue Type: {issue_type.replace('_', ' ').title()}
-🚨 Business Priority: COLLECT EVIDENCE → LOG FEEDBACK → MINIMAL COMPENSATION
+🚨 Business Priority: SYMPATHIZE → LOG INCIDENT → ONLY COMPENSATE IF EXPLICITLY REQUESTED
 
 {evidence_instruction}
 
-🚀 MANDATORY BUSINESS WORKFLOW:
-1. Acknowledge the problem with empathy
-2. Request photo evidence if applicable
-3. Log feedback as "valuable for improvement"  
-4. Offer SOLUTION first (redelivery, replacement)
-5. ONLY if customer extremely dissatisfied → offer 70% voucher
-6. NEVER mention "compensation for fault" - say "goodwill gesture"
+🚀 CONSERVATIVE BUSINESS WORKFLOW:
+1. Express genuine empathy and apology for the experience
+2. Log the incident and report it to the merchant for improvement
+3. Assure customer that feedback helps us improve service quality
+4. DO NOT mention compensation, refunds, or any monetary remedies
+5. ONLY if customer explicitly asks for refund → use gather_compensation_details
+6. When negotiating compensation → maximum 50% of order value
+7. If customer unsatisfied with 50% offer → escalate to human agent
 
 💼 FORBIDDEN: 
-• Immediate compensation without evidence
-• Using words like "refund" or "compensation for our mistake"
-• Offering real money instead of vouchers
+• Proactive compensation offers without customer request
+• Mentioning refunds, compensation, or money in initial response
+• Offering more than 50% of order value as compensation
+• Processing compensation without explicit customer request
 
-💡 Remember: Frame as feedback logging, not fault admission!"""
+💡 Remember: Be sympathetic but don't offer money unless specifically asked!"""
     
     else:
         return f"""🎯 GENERAL INQUIRY DETECTED:
@@ -303,8 +305,8 @@ def handle_wrong_order_situation(order_details: str) -> str:
 (I won't process anything until you let me know what you'd like to do)"""
 
 def provide_generic_solution(issue_details: str) -> str:
-    """Business-first solution that tries to solve problems before offering compensation"""
-    print(f"--- Business Solution Strategy: {issue_details} ---")
+    """Conservative business response that expresses sympathy and logs incident without offering compensation"""
+    print(f"--- Conservative Business Response Strategy: {issue_details} ---")
     
     # Parse the issue type from details
     details_lower = issue_details.lower()
@@ -322,180 +324,97 @@ def provide_generic_solution(issue_details: str) -> str:
     elif any(word in details_lower for word in ["missing", "forgot", "didn't get"]):
         issue_type = "missing_items"
     
-    # Business-first responses that offer solutions before compensation
+    # Conservative, sympathetic responses that log incidents without offering compensation
     if issue_type == "spilled_food":
-        return f"""I'm really sorry to hear your food was spilled during delivery! That's absolutely not the experience we want for you.
+        return f"""I'm truly sorry to hear about your food being spilled during delivery. I completely understand how disappointing and frustrating this must be, especially after you were looking forward to your meal.
 
-🎯 **Let me offer you some immediate solutions:**
+📋 **What I'm doing right now:**
+• **Logging this incident** with our quality assurance team
+• **Reporting to the merchant** to prevent similar issues
+• **Documenting delivery partner feedback** for improvement
+• **Adding this to our quality improvement database**
 
-**Option 1: Fresh Replacement Order**
-• I can arrange for a fresh order to be prepared and delivered immediately
-• Same items, fresh preparation, priority delivery
-• No additional charge to you
-• Estimated time: 25-30 minutes
+This kind of feedback is incredibly valuable for helping us improve our service standards. Your experience helps us train our delivery partners better and work with merchants on proper packaging.
 
-**Option 2: Alternative Restaurant**
-• If the original restaurant is closed, I can find a similar option nearby
-• Same cuisine type, similar items
-• We'll cover any price difference
+📝 **Incident Status:** Recorded and forwarded to relevant teams for review
 
-**Option 3: Compensation Discussion**
-• If you prefer not to wait, we can discuss fair compensation
-• This would involve understanding your order value and expectations
-• I'd need to gather some details to ensure appropriate resolution
-
-What would work best for you? I want to make sure we solve this in the way that makes you happiest, while being fair to both you and our business."""
+Is there anything else about this experience you'd like me to document or address?"""
 
     elif issue_type == "wrong_order":
-        return f"""I understand how frustrating it is to receive the wrong order when you were looking forward to something specific!
+        return f"""I sincerely apologize for the mix-up with your order. Receiving something different from what you ordered is definitely frustrating, and I completely understand your disappointment.
 
-🎯 **Here are your resolution options:**
+📋 **What I'm doing right now:**
+• **Logging this order error** in our system for investigation
+• **Notifying the merchant** about the preparation mistake
+• **Recording this feedback** to improve order accuracy
+• **Updating quality metrics** to prevent future mix-ups
 
-**Option 1: Correct Order Delivery**
-• I can arrange for your original order to be prepared fresh
-• Priority delivery, no additional charge
-• Estimated time: 20-30 minutes
+Your feedback is essential for helping us improve our order fulfillment process. This information helps both our restaurant partners and our operations team understand where improvements are needed.
 
-**Option 2: Keep + Adjust**
-• You can keep what was delivered (if you want it)
-• I'll arrange partial compensation for the difference
-• Quick resolution without additional waiting
+📝 **Incident Status:** Documented and shared with quality improvement team
 
-**Option 3: Full Resolution Discussion** 
-• If neither option works, let's discuss full compensation
-• I'd need to understand your order value and what outcome you're hoping for
-• We can find a fair solution that works for both sides
-
-Which approach sounds best to you? I'm here to make this right in whatever way works for your situation."""
+Is there anything specific about the order mix-up you'd like me to include in the report?"""
 
     elif issue_type == "cold_food":
-        return f"""I'm sorry your food arrived cold - that definitely affects the whole eating experience!
+        return f"""I'm really sorry your food arrived cold. I know how disappointing it is when your meal doesn't arrive at the right temperature - it really affects the whole dining experience.
 
-🎯 **Let me offer you these solutions:**
+📋 **What I'm doing right now:**
+• **Recording this temperature issue** for delivery quality review
+• **Informing the merchant** about food temperature maintenance
+• **Logging delivery time factors** that may have contributed
+• **Adding to our service improvement tracking**
 
-**Option 1: Fresh Hot Replacement**
-• I can arrange for your order to be prepared fresh and delivered hot
-• Same items, proper temperature this time
-• No charge to you, priority handling
+This type of feedback helps us work with both restaurants and delivery partners on maintaining food quality during transport. Your input is valuable for improving our overall service standards.
 
-**Option 2: Restaurant Credit + Instructions**
-• I can provide detailed reheating instructions for optimal taste
-• Plus restaurant credit for your next order
-• Faster resolution if you're okay with reheating
+📝 **Incident Status:** Logged for quality assurance follow-up
 
-**Option 3: Compensation Discussion**
-• If you prefer monetary resolution, we can discuss fair compensation
-• This would involve understanding your expectations and order details
-• We'll find an amount that's fair for the inconvenience
+Would you like me to include any additional details about the delivery timing or food condition?"""
 
-What would work best for your situation right now?"""
-
-    else:
-        return f"""I understand you're experiencing an issue with your order, and I want to make this right.
-
-🎯 **Let me offer you solution-focused options:**
-
-**Option 1: Direct Problem Resolution**
-• I can work to solve the specific issue you're experiencing
-• This might involve contacting the restaurant or driver
-• Aim to fix the root problem rather than just compensate
-
-**Option 2: Alternative Solution**
-• Depending on your specific situation, there might be alternative approaches
-• Such as replacement orders, restaurant credits, or priority handling
-
-**Option 3: Fair Compensation Discussion**
-• If a direct solution isn't possible, we can discuss appropriate compensation
-• This would involve understanding your order details and expectations
-• I'll ensure any compensation reflects both your loss and business fairness
-
-Could you share a bit more about what specifically went wrong so I can offer the most appropriate solution?"""
-        
-        return f"""{weather_empathy}
-
-{mature_tone}
-
-**Here's what I'm doing for you right now:**
-
-💰 **Compensation Package:**
-• Delivery fee refund: ₹{compensation['refund_amount']}
-• Weather inconvenience voucher: ₹{compensation['bonus_voucher']} 
-• Total value: ₹{compensation['total_compensation']}
-
-The refund will be processed immediately, and your voucher will be active for your next order. I hope your next delivery experience is much smoother!
-
-Is there anything else I can help you with today?"""
-
-    # Personality-driven solution responses
-    solution_personalities = {
-        "spilled": [
-            "This is absolutely unacceptable, and I'm going to make sure you're completely taken care of right now!",
-            "Oh my goodness, I can only imagine how disappointing that must have been! Let me fix this immediately.",
-            "A spilled meal is just heartbreaking - you were probably so looking forward to it! Here's what I'm doing for you..."
-        ],
-        "wrong_order": [
-            "Getting the wrong order is like getting excited for pizza and receiving salad - just not the same! Let me sort this out for you.",
-            "I can imagine the confusion and disappointment when you opened that bag! Here's how I'm going to make this right:",
-            "Mix-ups happen, but that doesn't make them any less frustrating! I'm taking care of this immediately."
-        ],
-        "cold_food": [
-            "Cold food is honestly such a letdown - it completely changes the whole experience! Let me compensate you properly for this.",
-            "There's something especially sad about food that's lost its warmth and appeal. Here's what I'm doing to make up for it:",
-            "A lukewarm meal just hits different (and not in a good way)! I'm going to make sure this is worth your while."
-        ],
-        "missing_items": [
-            "Missing items are like getting a puzzle with pieces missing - just incomplete! Let me fix this for you right away.",
-            "I hate when orders arrive incomplete - it's like getting half a story! Here's your complete solution:",
-            "Nothing worse than reaching for something you ordered and it's just... not there! Let me make this right."
-        ],
-        "poor_quality": [
-            "Poor quality food is just unacceptable - you deserve so much better than what you received!",
-            "When food doesn't meet our standards, it definitely doesn't meet yours either! Here's how I'm fixing this:",
-            "Quality is everything in food delivery, and we clearly dropped the ball. Let me make this right for you."
-        ]
-    }
-    
-    # Generate dynamic response
-    personality_intro = random.choice(solution_personalities.get(issue_type, [
-        "I understand your frustration and I'm here to make this right immediately!"
-    ]))
-    
-    # Generate compensation-specific messaging
-    comp_type = compensation['compensation_type']
-    if comp_type == "full_refund_plus":
-        comp_message = "**Full refund PLUS extra compensation** - because this was completely unacceptable!"
-    elif comp_type == "full_refund":
-        comp_message = "**Complete refund** - you shouldn't pay for something that wasn't right!"
-    elif comp_type == "partial_refund":
-        comp_message = "**Partial refund + bonus voucher** - fair compensation for the inconvenience!"
-    else:
-        comp_message = "**Appropriate compensation** - making sure you're taken care of!"
-    
-    # Add some humor/personality for specific cases
-    bonus_personality = ""
-    if issue_type == "wrong_order":
-        bonus_personality = "\n\n*P.S. - I hope whoever got your actual order at least enjoyed it! 😅*"
-    elif issue_type == "spilled":
-        bonus_personality = "\n\n*Next time, let's keep your food in the container where it belongs! 🤞*"
     elif issue_type == "late_delivery":
-        bonus_personality = "\n\n*Your patience level today deserves an award! 🏆*"
-    
-    return f"""{personality_intro}
+        return f"""I apologize for the delayed delivery of your order. I understand how inconvenient it is when your food takes longer than expected, especially when you're hungry and planning your time around the delivery.
 
-{comp_message}
+📋 **What I'm doing right now:**
+• **Recording this delivery delay** for route optimization review
+• **Analyzing the delivery timeline** to identify causes
+• **Documenting for delivery partner performance review**
+• **Logging for operational efficiency improvements**
 
-💰 **Your Compensation Breakdown:**
-• Refund: ₹{compensation['refund_amount']}
-• Bonus voucher: ₹{compensation['bonus_voucher']}
-• **Total value: ₹{compensation['total_compensation']}**
+Your feedback about delivery timing helps us improve our logistics and better manage customer expectations. This information is valuable for optimizing our delivery operations.
 
-✅ **Status:** Processing immediately - you'll see the refund in 2-3 business days
-🎫 **Voucher:** Active now for your next order (valid for 30 days)
-📧 **Confirmation:** Sending details to your registered email
+📝 **Incident Status:** Documented for operational review and improvement
 
-I really hope your next experience with us is absolutely perfect!{bonus_personality}
+Is there anything else about the delivery experience you'd like me to record?"""
 
-Need anything else? I'm here to help! 😊"""
+    elif issue_type == "missing_items":
+        return f"""I'm sorry some items were missing from your order. I understand how frustrating it is when you're expecting certain items and they're not included in your delivery.
+
+📋 **What I'm doing right now:**
+• **Logging this missing items incident** for quality control
+• **Notifying the merchant** about order completeness procedures
+• **Recording for delivery verification process improvement**
+• **Documenting for order fulfillment training**
+
+This feedback is crucial for helping us improve our order verification processes with restaurant partners. Your experience helps us strengthen quality control measures.
+
+📝 **Incident Status:** Recorded for merchant and operations team review
+
+Would you like me to document any other details about what was missing?"""
+
+    else:
+        return f"""I'm sorry to hear about the issue with your order. I understand your frustration and want to make sure we properly document what happened to help improve our service.
+
+📋 **What I'm doing right now:**
+• **Logging your feedback** in our quality improvement system
+• **Recording the incident details** for review by relevant teams
+• **Documenting for service enhancement** and training purposes
+• **Adding to our customer experience tracking**
+
+Your feedback is valuable for helping us identify areas where we can do better. This information helps us improve our service for all customers.
+
+📝 **Incident Status:** Documented and forwarded for appropriate follow-up
+
+Is there anything specific about your experience you'd like me to include in the report?"""
+
 
 def handle_edge_cases(message: str) -> dict:
     """Handle humor, vague complaints, slang, and incomplete information naturally"""
@@ -1430,36 +1349,36 @@ def negotiate_fair_compensation(order_details: str) -> str:
         if match:
             order_value = int(match.group(1))
     
-    # Determine issue type and calculate base compensation
+    # Determine issue type and calculate base compensation (CAPPED AT 50%)
     issue_type = "general"
-    base_percentage = 40
+    base_percentage = 25  # More conservative starting point
     
     if any(word in order_details.lower() for word in ["wrong", "incorrect", "different"]):
         issue_type = "wrong_order"
-        base_percentage = 45
+        base_percentage = 30
     elif any(word in order_details.lower() for word in ["spilled", "damaged", "cold", "soggy"]):
         issue_type = "quality_issue"
-        base_percentage = 50
+        base_percentage = 40
     elif any(word in order_details.lower() for word in ["late", "delay", "waiting"]):
         issue_type = "delivery_delay"
-        base_percentage = 25
+        base_percentage = 15
     elif any(word in order_details.lower() for word in ["missing", "incomplete"]):
         issue_type = "missing_items"
-        base_percentage = 60
+        base_percentage = 35
     
-    # Calculate compensation with business considerations
+    # Calculate compensation with MAXIMUM 50% CAP
     base_compensation = int(order_value * base_percentage / 100)
     delivery_cost = random.choice([45, 50, 55, 60])  # Average delivery cost
-    goodwill_voucher = random.choice([50, 75, 100])  # Additional gesture
+    goodwill_voucher = random.choice([30, 40, 50])  # Smaller goodwill gesture
     
-    # Create negotiation tiers
+    # Create negotiation tiers - MAXIMUM 50% of order value
     tier_1_offer = base_compensation
-    tier_2_offer = base_compensation + 50
-    tier_3_offer = min(int(order_value * 0.7), base_compensation + 100)  # Max 70% of order
+    tier_2_offer = min(base_compensation + 30, int(order_value * 0.4))  # Max 40% in tier 2
+    tier_3_offer = min(int(order_value * 0.5), base_compensation + 60)  # HARD CAP AT 50%
     
     customer_satisfaction_score = random.choice([75, 80, 85, 90])
     
-    return f"""🤝 DYNAMIC COMPENSATION NEGOTIATION:
+    return f"""🤝 CONSERVATIVE COMPENSATION NEGOTIATION:
 
 📋 ASSESSMENT SUMMARY:
 • Order Value: ₹{order_value}
@@ -1467,30 +1386,31 @@ def negotiate_fair_compensation(order_details: str) -> str:
 • Affected Amount: ~₹{base_compensation} worth of items
 • Our Delivery Cost: ₹{delivery_cost}
 
-💼 BUSINESS-BALANCED OFFER:
+💼 CONSERVATIVE BUSINESS OFFER (MAX 50% OF ORDER VALUE):
 
-🎯 PRIMARY OFFER (Recommended):
+🎯 PRIMARY OFFER (Starting Point):
 • Cash Refund: ₹{tier_1_offer}
 • Goodwill Credit: ₹{goodwill_voucher}
 • Total Value: ₹{tier_1_offer + goodwill_voucher}
 
-📈 ESCALATION TIERS (if customer pushes back):
+📈 ESCALATION TIERS (if customer requests more):
 • Tier 2: ₹{tier_2_offer} refund + ₹{goodwill_voucher} credit
-• Tier 3: ₹{tier_3_offer} refund + ₹{goodwill_voucher} credit (MAXIMUM)
+• Tier 3: ₹{tier_3_offer} refund + ₹{goodwill_voucher} credit (ABSOLUTE MAXIMUM - 50% CAP)
 
 💡 NEGOTIATION TALKING POINTS:
-✅ "This covers the full value of affected items plus inconvenience"
+✅ "This covers the affected portion of your order plus inconvenience"
 ✅ "We're also absorbing our ₹{delivery_cost} delivery cost as goodwill"
-✅ "The credit ensures you'll have a better experience next time"
-✅ "This reflects both your loss and our commitment to fairness"
+✅ "Our policy caps compensation at 50% of order value for fairness to all customers"
+✅ "This reflects both your loss and our business sustainability constraints"
 
-❌ CONSTRAINTS TO MENTION:
-• "We've also invested in delivery and preparation costs"
-• "This helps us maintain quality service for all customers"
-• "Our goal is fair compensation that works for everyone"
+❌ IMPORTANT CONSTRAINTS:
+• "Maximum compensation is 50% of order value as per company policy"
+• "This helps us maintain fair service for all customers"
+• "If unsatisfied with this maximum offer, I can escalate to a human agent"
 
+🚨 ESCALATION TRIGGER: If customer rejects 50% offer → escalate to human
 🎖️ CUSTOMER RETENTION PRIORITY: {customer_satisfaction_score}% satisfaction target
-🚦 APPROVAL STATUS: Pre-approved for amounts up to ₹{tier_3_offer}"""
+🚦 APPROVAL STATUS: Pre-approved up to ₹{tier_3_offer} (50% maximum)"""
 
 
 def explain_business_compensation_policy(issue_type: str) -> str:
@@ -1560,29 +1480,29 @@ def calculate_dynamic_refund_amount(order_value: int, issue_type: str, customer_
     """
     print(f"--- Calculating Dynamic Refund: ₹{order_value} order, {issue_type} ---")
     
-    # Base compensation percentages by issue type
+    # Base compensation percentages by issue type (CAPPED AT 50%)
     compensation_matrix = {
-        "wrong_order": {"min": 40, "max": 60},
-        "quality_issue": {"min": 50, "max": 70},
-        "delivery_delay": {"min": 15, "max": 35},
-        "missing_items": {"min": 60, "max": 80},
-        "spilled_food": {"min": 55, "max": 75},
-        "cold_food": {"min": 35, "max": 50},
-        "damaged_packaging": {"min": 30, "max": 45}
+        "wrong_order": {"min": 25, "max": 40},
+        "quality_issue": {"min": 30, "max": 50},
+        "delivery_delay": {"min": 10, "max": 25},
+        "missing_items": {"min": 35, "max": 50},
+        "spilled_food": {"min": 35, "max": 50},
+        "cold_food": {"min": 20, "max": 35},
+        "damaged_packaging": {"min": 15, "max": 30}
     }
     
     # Get compensation range
     comp_range = compensation_matrix.get(issue_type, {"min": 40, "max": 60})
     
-    # Adjust based on customer expectation
+    # Adjust based on customer expectation but CAP AT 50%
     if "full refund" in customer_expectation.lower() or "complete" in customer_expectation.lower():
-        percentage = comp_range["max"]
-        tier = "maximum"
+        percentage = min(comp_range["max"], 50)  # Never exceed 50%
+        tier = "maximum (50% cap)"
     elif "partial" in customer_expectation.lower() or "some" in customer_expectation.lower():
         percentage = comp_range["min"]
         tier = "minimal"
     else:
-        percentage = (comp_range["min"] + comp_range["max"]) // 2
+        percentage = (comp_range["min"] + min(comp_range["max"], 50)) // 2
         tier = "standard"
     
     # Calculate amounts
@@ -1618,7 +1538,7 @@ def calculate_dynamic_refund_amount(order_value: int, issue_type: str, customer_
 ✅ "We're absorbing our ₹{total_grab_cost} operational costs"
 ✅ "Total value of ₹{refund_amount + goodwill_credit} shows our commitment to making this right"
 
-🚦 APPROVAL STATUS: {"Pre-approved" if refund_amount <= order_value * 0.7 else "Requires supervisor approval"}
+🚦 APPROVAL STATUS: {"Pre-approved" if refund_amount <= order_value * 0.5 else "Exceeds 50% policy - requires escalation"}
 💡 CUSTOMER SATISFACTION TARGET: {random.choice([85, 90, 95])}% resolution confidence"""
 
 
@@ -1840,3 +1760,63 @@ I understand your concerns and want to ensure you receive the attention this mat
 *Please hold while I connect you with {assigned_officer['name']}. Your conversation history and case details are being transferred now.*
 
 **Note:** {assigned_officer['name']} will be with you shortly and has full context of your situation."""
+
+
+def escalate_compensation_dissatisfaction(customer_complaint: str, attempted_compensation: str = "50% of order value") -> str:
+    """
+    Handle escalation when customer is dissatisfied with maximum 50% compensation offer.
+    Escalates to human agent with full context.
+    """
+    print(f"--- Escalating Compensation Dissatisfaction: {customer_complaint} ---")
+    
+    # Generate escalation reference number
+    escalation_id = f"ESC_{random.randint(10000, 99999)}"
+    
+    # Determine escalation reason
+    complaint_lower = customer_complaint.lower()
+    escalation_reason = "General dissatisfaction"
+    
+    if any(word in complaint_lower for word in ["not enough", "more money", "full refund", "complete refund"]):
+        escalation_reason = "Requesting compensation above 50% policy limit"
+    elif any(word in complaint_lower for word in ["unfair", "ridiculous", "terrible", "awful"]):
+        escalation_reason = "Customer expressing strong dissatisfaction with policy"
+    elif any(word in complaint_lower for word in ["manager", "supervisor", "human", "person"]):
+        escalation_reason = "Customer specifically requesting human intervention"
+    elif any(word in complaint_lower for word in ["cancel", "never again", "complaint", "report"]):
+        escalation_reason = "Customer threatening to escalate beyond Grab"
+    
+    return f"""🚨 ESCALATION TO HUMAN AGENT INITIATED
+
+📋 ESCALATION SUMMARY:
+• Escalation ID: {escalation_id}
+• Reason: {escalation_reason}
+• Max Compensation Offered: {attempted_compensation}
+• Customer Response: {customer_complaint}
+
+👤 HUMAN AGENT ASSIGNMENT:
+• Queue: Customer Service Specialists
+• Priority: High (Compensation Dispute)
+• Estimated Wait Time: 3-5 minutes
+• Agent Type: Senior Customer Care Officer
+
+📝 CONTEXT PROVIDED TO AGENT:
+• Customer has been offered maximum policy compensation (50% of order value)
+• Customer is dissatisfied with this amount
+• All standard compensation procedures have been followed
+• Customer requires human judgment for resolution
+
+💬 CUSTOMER MESSAGE:
+"I understand you're not satisfied with our maximum compensation offer of {attempted_compensation}. I'm now connecting you with one of our senior customer care officers who has additional authority to review your case.
+
+Your escalation ID is {escalation_id}. The specialist will have full context of our conversation and can explore additional options that may be available.
+
+Please hold while I transfer you - estimated wait time is 3-5 minutes."
+
+🎯 AGENT INSTRUCTIONS:
+• Review full conversation history
+• Customer has rejected maximum standard compensation
+• Explore goodwill gestures beyond standard policy if appropriate
+• Focus on customer retention and satisfaction
+• Document final resolution for policy review
+
+⚡ STATUS: Transfer in progress..."""

@@ -149,22 +149,6 @@ The system automatically categorizes complaints:
 - **Goodwill Emphasis**: Positions compensation as customer retention investment
 - **Documentation Standards**: Maintains detailed logs for business records
 
-## 🔄 Workflow Examples
-
-### Spilled Food Complaint Workflow
-1. **Evidence Collection**: "Could you please share a photo of the spilled food?"
-2. **Situation Analysis**: Reviews order details, delivery logs, and customer history
-3. **Feedback Logging**: Documents issue for merchant improvement tracking
-4. **Solution Focus**: Explores replacement options before compensation
-5. **Conservative Compensation**: If needed, offers 70-90% voucher as goodwill gesture
-6. **Escalation Option**: Connects to customer care officer if customer remains dissatisfied
-
-### Wrong Order Workflow  
-1. **Photo Request**: "Please share a photo of what you received vs. what you ordered"
-2. **Order Verification**: Cross-references with merchant preparation and delivery logs
-3. **Immediate Solution**: Arranges correct order delivery if possible
-4. **Business Documentation**: Records incident for operational improvement
-5. **Customer Retention**: Focuses on making the experience right rather than just compensating
 
 ## 🚀 Getting Started
 
@@ -220,7 +204,7 @@ The system automatically categorizes complaints:
 
 ### Running the Application
 
-#### Option 1: Flask Web Interface
+#### Flask Web Interface
 ```bash
 python app.py
 ```
@@ -228,43 +212,6 @@ python app.py
 - Experience the full customer service interface
 - Test evidence collection and escalation features
 
-### Testing the System
-
-**Test Scenarios:**
-1. **Evidence Collection**: "My food was spilled during delivery"
-2. **Wrong Order**: "I received chicken instead of vegetarian food"  
-3. **Late Delivery**: "My order is 45 minutes late"
-4. **Escalation Request**: "I want to speak to a manager"
-5. **Voice Input**: Click the microphone button and speak your complaint
-
-**Expected Behavior:**
-- Agent requests photo evidence for visual issues
-- Logs feedback professionally without admitting fault
-- Offers conservative voucher compensation only when necessary
-- Escalates to appropriate customer care officers
-- Speech-to-text accurately transcribes voice input for editing
-
-## 📁 Project Structure
-
-```
-Prototype/
-├── agent_core.py              # AI agent configuration & system prompts
-├── app.py                     # Main Flask application  
-├── flask_app.py               # Alternative Streamlit interface
-├── tools.py                   # Customer service tools & business logic
-├── config.py                  # Configuration management
-├── requirements.txt           # Python dependencies
-├── .env                       # Environment variables (create this)
-├── templates/                 # HTML templates for web interface
-├── static/                    # CSS, JS, and static assets
-├── Sandbox/                   # Testing environment
-│   ├── sandbox_database.py    # Simulated business data
-│   └── sandbox_tools.py       # Sandbox-specific tools
-└── __pycache__/               # Python cache files
-```
-## 📜 License
-
-This project is created for educational and demonstration purposes. Please ensure compliance with your organization's policies when implementing in production environments.
 
 ## 🆘 Support
 
@@ -277,18 +224,5 @@ For questions or issues:
 6. **For microphone issues**: Ensure browser permissions allow microphone access
 
 **Note**: The speech-to-text feature requires microphone permissions in your browser. When prompted, please allow microphone access for voice input functionality.
-
-## 🔮 Future Enhancements
-
-- **Multi-language Support**: Automatic language detection and response
-- **Voice Integration**: Audio complaint processing capabilities  
-- **Advanced Analytics**: Machine learning-based pattern recognition
-- **Mobile App Integration**: Native mobile customer service interface
-- **Real-time Notifications**: Instant updates for customers and support staff
-
-=======
-3. Ensure all dependencies are properly installed
-4. Review the sandbox database for realistic test data
----
 
 **Built with ❤️ for smarter, more sustainable customer service automation**
